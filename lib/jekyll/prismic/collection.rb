@@ -12,7 +12,7 @@ module Jekyll
       end
 
       def generate?
-        @config['generate'] || false
+        @config['output'] || false
       end
 
       def each
