@@ -22,7 +22,7 @@ module Jekyll
         end
 
         queries = []
-        queries << Prismic::Predicates::at('document.type', @config['type']) if @config['type']
+        queries << ::Prismic::Predicates::at('document.type', @config['type']) if @config['type']
 
         form = PrismicHelper.api.form(@config['form'] || "everything").ref(PrismicHelper.ref)
 
@@ -44,7 +44,7 @@ module Jekyll
             end
             response = form.page(response.next_page).submit() if response.next_page != nil
           end while response.next_page != nil
-        rescue Prismic::SearchForm::FormSearchException => error
+        rescue ::Prismic::SearchForm::FormSearchException => error
           Jekyll.logger.warn "prismic:collection:#{@collection_name}", "Not found"
         end
       end

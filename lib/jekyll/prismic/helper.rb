@@ -8,7 +8,7 @@ module Jekyll
       def self.api
         return if config == nil
 
-        @@api ||= Prismic.api(config['endpoint'], config['access_token'])
+        @@api ||= ::Prismic.api(config['endpoint'], config['access_token'])
       end
 
       def self.ref
@@ -24,11 +24,11 @@ module Jekyll
 
         begin
           response = api.form('everything')
-              .query(Prismic::Predicates::at('document.id', id))
+              .query(::Prismic::Predicates::at('document.id', id))
               .submit(ref)
 
           @@document_cache[id] = response.results.first
-        rescue Prismic::SearchForm::FormSearchException
+        rescue ::Prismic::SearchForm::FormSearchException
           nil
         end
       end

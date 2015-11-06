@@ -52,19 +52,19 @@ module Jekyll
             fragment = @fragments[fragment_id]
 
             case fragment
-            when Prismic::Fragments::DocumentLink then
+            when ::Prismic::Fragments::DocumentLink then
                 PrismicDocumentLinkFragmentDrop.new(fragment, @link_resolver)
-            when Prismic::Fragments::Link then
+            when ::Prismic::Fragments::Link then
                 PrismicLinkFragmentDrop.new(fragment, @link_resolver)
-            when Prismic::Fragments::Group then
+            when ::Prismic::Fragments::Group then
                 PrismicGroupFragmentDrop.new(fragment, @link_resolver)
-            when Prismic::Fragments::GroupDocument then
+            when ::Prismic::Fragments::GroupDocument then
                 PrismicGroupDocumentFragmentDrop.new(fragment, @link_resolver)
-            when Prismic::Fragments::Multiple then
+            when ::Prismic::Fragments::Multiple then
                 PrismicMultipleFragmentDrop.new(fragment, @link_resolver)
-            when Prismic::Fragments::Color then
+            when ::Prismic::Fragments::Color then
                 PrismicColorFragmentDrop.new(fragment, @link_resolver)
-            when Prismic::Fragments::StructuredText then
+            when ::Prismic::Fragments::StructuredText then
                 PrismicStructuredTextFragmentDrop.new(fragment, @link_resolver)
             else
                 PrismicFragmentDrop.new(fragment, @link_resolver)
