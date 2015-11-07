@@ -65,3 +65,20 @@ To list all documents of the collection:
 </article>
 {% endfor %}
 ```
+
+### Using bookmarks
+
+Prismic’s bookmarks are a handy way to load documents for things like error pages or site configuration. Bookmarks can be accessed with the `site.prismic.bookmarks` object. Each bookmark is returned as document, fetched from the API.
+
+Suppose, we have an error document `404.html` and a bookmark named `errorpage` in Prismic, our template would look this way:
+
+```html
+---
+---
+{% assign document = site.prismic.bookmarks.errorpage %}
+
+<header>{{ document.fragments.title.html }}</header>
+<main>
+    {{ document.fragments.body.html }}
+</main>
+```
