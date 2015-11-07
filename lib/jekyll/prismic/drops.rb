@@ -51,6 +51,10 @@ module Jekyll
         def [](fragment_id)
             fragment = @fragments[fragment_id]
 
+            if fragment == nil
+              return nil
+            end
+
             case fragment
             when ::Prismic::Fragments::DocumentLink then
                 PrismicDocumentLinkFragmentDrop.new(fragment, @link_resolver)
