@@ -8,7 +8,10 @@ module Jekyll
       def self.api
         return if config == nil
 
-        @@api ||= ::Prismic.api(config['endpoint'], config['access_token'])
+        @@api ||= ::Prismic.api(config['endpoint'], {
+          :access_token => config['access_token'],
+          :cache => ::Prismic::LruCache.new
+        })
       end
 
       def self.ref
