@@ -11,7 +11,7 @@ module Jekyll
             collection.each do |document|
               site.pages << PrismicPage.new(site, site.source, document, collection.config)
               count += 1
-              break if count >= collection.config['output_limit']
+              break if collection.config['output_limit'] != nil and count >= collection.config['output_limit']
             end
           end
         end

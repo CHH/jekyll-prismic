@@ -37,10 +37,16 @@ prismic:
             form: posts
             # Layout file for this collection
             layout: prismic_post.html
-            # Additional queries
+            # Additional queries (optional)
             query:
                 - ["missing", "my.post.allow_comments"]
-            output: true # Generate output files or not (default: false)
+            # Order posts in the collection by a fragment (optional)
+            orderings: '[my.post.date desc]'
+            # Generate output files or not (default: false)
+            output: true
+            # Limit output to a number of files, useful for large collections
+            # (optional)
+            output_limit: nil
 ```
 
 ## Usage
