@@ -17,7 +17,7 @@ gems:
 
 ## Configuration
 
-```
+```yaml
 prismic:
     # Your repository endpoint
     endpoint: https://lesbonneschoses.prismic.io/api
