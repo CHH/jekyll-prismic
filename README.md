@@ -22,7 +22,8 @@ prismic:
     # Your repository endpoint
     endpoint: https://lesbonneschoses.prismic.io/api
     access_token: 'Your access token if the repo is private'
-    # Link resolving, key should match a document type in your repo
+    # Link resolving, key should match a document type in your repo, permalink
+    # then is expanded and returned when generating the document’s URL
     links:
         post:
             permalink: /posts/:slug-:id/
