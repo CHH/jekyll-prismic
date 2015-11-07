@@ -34,6 +34,10 @@ module Jekyll
 
         form.query(*queries)
 
+        if @config['orderings'] != nil
+          form.orderings(@config['orderings'])
+        end
+
         begin
           response = form.submit()
 
