@@ -7,11 +7,8 @@ module Jekyll
       def generate(site)
         site.prismic_collections.each do |collection_name, collection|
           if collection.generate?
-            count = 0
             collection.each do |document|
               site.pages << PrismicPage.new(site, site.source, document, collection.config)
-              count += 1
-              break if collection.config['output_limit'] != nil and count >= collection.config['output_limit']
             end
           end
         end

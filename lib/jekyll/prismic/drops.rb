@@ -176,7 +176,9 @@ module Jekyll
 
         def to_liquid
             results = []
-            @collection.each { |result| results << PrismicDocumentDrop.new(result, @link_resolver) }
+            @collection.each do |result|
+              results << PrismicDocumentDrop.new(result, @link_resolver)
+            end
             results
         end
     end
@@ -196,37 +198,33 @@ module Jekyll
     # Main Liquid Drop, handles lazy loading of collections, tags, and bookmarks
     # and conversion to drops
     class PrismicDrop < Liquid::Drop
-        def initialize(site)
-            @site = site
-        end
+      def initialize(site)
+        @site = site
+      end
 
-        def collections
-            @collections ||= PrismicCollectionsDrop.new(@site.prismic_collections, @site.prismic_link_resolver)
-        end
+      def collections
+        @collections ||= PrismicCollectionsDrop.new(@site.prismic_collections, @site.prismic_link_resolver)
+      end
 
-        def tags
-            @tags ||= @site.prismic.tags
-        end
+      def tags
+        @tags ||= @site.prismic.tags
+      end
 
-        def bookmarks
-            @bookmarks ||= PrismicBookmarksDrop.new(@site, @site.prismic.bookmarks)
-        end
+      def bookmarks
+        @bookmarks ||= PrismicBookmarksDrop.new(@site, @site.prismic.bookmarks)
+      end
     end
 
     # Handles Prismic bookmarks in Liquid, and fetches the documents on demand
     class PrismicBookmarksDrop < Liquid::Drop
-        def initialize(site, bookmarks)
-            @cache = {}
-            @site = site
-            @bookmarks = bookmarks
-        end
+      def initialize(site, bookmarks)
+        @site = site
+        @bookmarks = bookmarks
+      end
 
-        def [](bookmark)
-            unless @cache.key? bookmark
-                @cache[bookmark] = PrismicDocumentDrop.new(PrismicHelper.find_document(@bookmarks[bookmark]), @site.prismic_link_resolver)
-            end
-            @cache[bookmark]
-        end
+      def [](bookmark)
+        PrismicDocumentDrop.new(@site.prismic_document(@bookmarks[bookmark]), @site.prismic_link_resolver)
+      end
     end
   end
 end

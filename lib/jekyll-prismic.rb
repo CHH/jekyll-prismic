@@ -1,6 +1,5 @@
 require 'prismic'
 require 'jekyll/prismic/version'
-require 'jekyll/prismic/helper'
 require 'jekyll/prismic/collection'
 require 'jekyll/prismic/drops'
 require 'jekyll/prismic/generator'

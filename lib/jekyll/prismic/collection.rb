@@ -16,15 +16,18 @@ module Jekyll
       end
 
       def each
-        if @cache.length > 0
-          @cache.each { |v| yield v }
-          return
+        return enum_for(:each) unless block_given?
+        
+        count = 0
+        queries = []
+
+        if @config['type'] != nil
+          queries << ::Prismic::Predicates::at('document.type', @config['type'])
         end
 
-        queries = []
-        queries << ::Prismic::Predicates::at('document.type', @config['type']) if @config['type']
-
-        form = PrismicHelper.api.form(@config['form'] || "everything").ref(PrismicHelper.ref)
+        form = @site.prismic
+          .form(@config['form'] || "everything")
+          .ref(@site.prismic_ref)
 
         if @config['query'] != nil and @config['query'].length > 0
           @config['query'].each do |query|
@@ -43,8 +46,12 @@ module Jekyll
 
           begin
             response.results.each do |result|
-              @cache << result
               yield result
+              count += 1
+
+              if @config['output_limit'] != nil and count >= @config['output_limit']
+                break
+              end
             end
             response = form.page(response.next_page).submit() if response.next_page != nil
           end while response.next_page != nil

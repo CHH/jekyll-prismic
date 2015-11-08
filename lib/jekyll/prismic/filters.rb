@@ -2,7 +2,8 @@ module Jekyll
   module Prismic
     module PrismicFilter
       def prismic_document(input)
-        document = PrismicHelper.find_document(input)
+        site = @context.registers[:site]
+        document = site.prismic_document(input)
         PrismicDocumentDrop.new(document, @context.registers[:site].prismic_link_resolver)
       end
 
@@ -11,7 +12,7 @@ module Jekyll
         site = @context.registers[:site]
 
         if input.is_a? PrismicDocumentDrop
-            return site.prismic_link_resolver.link_to(input.document)
+          return site.prismic_link_resolver.link_to(input.document)
         end
 
         input.url if input.respond_to? :url
