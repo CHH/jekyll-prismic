@@ -8,7 +8,7 @@ module Jekyll
         site.prismic_collections.each do |collection_name, collection|
           if collection.generate?
             collection.each do |document|
-              site.pages << PrismicPage.new(site, site.source, document, collection.config)
+              site.pages << PrismicPage.new(site, site.source, document, collection)
             end
           end
         end
@@ -16,18 +16,24 @@ module Jekyll
     end
 
     class PrismicPage < Page
-      def initialize(site, base, document, config)
+      def initialize(site, base, document, collection)
         @site = site
         @base = base
-        @dir = config['output_dir']
-        # Default file name, can be overwritten by permalink frontmatter setting
-        @name = "#{document.slug}-#{document.id}.html"
+        @collection = collection
         @document = document
 
+        @dir = @collection.config['output_dir'] || collection.collection_name
+        # Default file name, can be overwritten by permalink frontmatter setting
+        @name = "#{document.slug}-#{document.id}.html"
+
         self.process(@name)
-        self.read_yaml(File.join(base, "_layouts"), config['layout'])
+        self.read_yaml(File.join(base, "_layouts"), @collection.config['layout'])
+
         # Use the permalink collection setting if it is set
-        self.data['permalink'] = config['permalink'] if config.key? 'permalink'
+        if @collection.config.key? 'permalink'
+          self.data['permalink'] = @collection.config['permalink']
+        end
+
         self.data['document'] = document
       end
 
@@ -36,7 +42,8 @@ module Jekyll
           :slug => @document.slug,
           :id => @document.id,
           :uid => @document.uid,
-          :type => @document.type
+          :type => @document.type,
+          :collection => @collection.collection_name
         }, super)
       end
 

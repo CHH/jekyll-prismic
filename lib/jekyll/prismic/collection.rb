@@ -8,7 +8,6 @@ module Jekyll
         @site = site
         @collection_name = collection_name
         @config = config
-        @config['output_dir'] = collection_name unless config.key? 'output_dir'
       end
 
       def generate?
