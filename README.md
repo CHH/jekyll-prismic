@@ -36,6 +36,9 @@ prismic:
             type: post
             # Collection name (optional)
             form: posts
+            # Permalink used to generate the output files. This should match an
+            # entry in "links", so documents link to the right output files
+            permalink: /posts/:slug-:id/
             # Layout file for this collection
             layout: prismic_post.html
             # Additional queries (optional)
