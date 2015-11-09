@@ -64,7 +64,7 @@ Collections are accessed by their name in `site.prismic.collections`. The `posts
 To list all documents of the collection:
 
 ```
-{% for post in site.prismic.collection.posts %}
+{% for post in site.prismic.collections.posts %}
 <article>
     <header>
         {{ post.fragments.title.html }}
