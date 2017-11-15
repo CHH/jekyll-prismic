@@ -69,7 +69,7 @@ To list all documents of the collection:
     <header>
         {{ post.fragments.title.html }}
     </header>
-    <div class="body"
+    <div class="body">
         {{ post.fragments.body.html }}
     </div>
 </article>
