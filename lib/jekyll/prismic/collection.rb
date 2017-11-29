@@ -39,6 +39,10 @@ module Jekyll
         if @config['orderings'] != nil
           form.orderings(@config['orderings'])
         end
+        
+        if @config['page_size'] != nil
+          form.page_size(@config['page_size'])
+        end
 
         begin
           response = form.submit()
