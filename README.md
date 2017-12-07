@@ -41,6 +41,8 @@ prismic:
             permalink: /posts/:slug-:id/
             # Layout file for this collection
             layout: prismic_post.html
+            # Max quantity of items (optional, default is 20)
+            page_size: 100
             # Additional queries (optional)
             query:
                 - ["missing", "my.post.allow_comments"]
